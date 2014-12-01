@@ -4,3 +4,4 @@
 <p>Introduza o seu PIN: <input type="text" name="pin" /></p>
 <p><input type="submit" /></p>
 </form>
+<!--- po caralho -->
