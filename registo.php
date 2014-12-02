@@ -10,6 +10,7 @@ $data = stripslashes($data);
  $data = htmlspecialchars($data);
  return $data;
 }
+//asdfasdfsadf
 // Carregamento das variáveis username e pin do form HTML através do metodo POST;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  $username = test_input($_POST["username"]);
