@@ -5,6 +5,8 @@
 session_start();
 $username = $_SESSION['username']; 
 $nif = $_SESSION['nif']; 
+
+
 // Função para limpar os dados de entrada
 function test_input($data) {
  $data = trim($data);
