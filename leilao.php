@@ -4,8 +4,12 @@
 	include 'includes/dbconnection.php';
 	// inicia sessão para passar variaveis entre ficheiros php
 	session_start();
-	$username = $_SESSION['username']; 
-	$nif = $_SESSION['nif']; 
+	if(!$_SESSION['username'])
+		header("Location: login.php");
+	else{
+		$username = $_SESSION['username'];
+		$nif = $_SESSION['nif'];
+	}
 	// Função para limpar os dados de entrada
 	function test_input($data) {
 		$data = trim($data);
@@ -86,7 +90,7 @@
 
 	// to be continued….
 	//termina a sessão
-	session_destroy();
+	//session_destroy();
 	?>
 </body>
 </html>
