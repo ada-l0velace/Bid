@@ -28,7 +28,7 @@
 	foreach($pessoa as $row){
 		$safepin = $row["pin"];
 		$nif = $row["nif"];
-		echo($row["nome"]);
+		$_SESSION['pessoa']= $row["nome"];
 		$nome = $row["nome"];
 	}
 	if ($safepin != $pin ) {

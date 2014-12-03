@@ -10,10 +10,10 @@
 	}
 	// Função para limpar os dados de entrada
 	function test_input($data) {
-	 $data = trim($data);
-	 $data = stripslashes($data);
-	 $data = htmlspecialchars($data);
-	 return $data; 
+		$data = trim($data);
+		$data = stripslashes($data);
+		$data = htmlspecialchars($data);
+		return $data; 
 	}
 	// Carregamento das variáveis username e pin do form HTML através do metodo POST;
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {

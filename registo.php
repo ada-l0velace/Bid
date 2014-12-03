@@ -14,10 +14,12 @@
 	            }
         	});
 		}
+
+
 	</script>
 </head>
 	<body>
-
+	<input type="button" value="logout" onclick="location.href = 'logout.php'" />
 	<?php 
 		include 'includes/dbconnection.php';
 		// inicia sessão para passar variaveis entre ficheiros php
@@ -28,6 +30,7 @@
 			$username = $_SESSION['username'];
 			$nif = $_SESSION['nif'];
 		}
+		echo("You are logged with ".$_SESSION['pessoa']);
 		// Apresenta os leilões
 		$sql = "SELECT * 
 				FROM leilao, leilaor 
@@ -57,7 +60,7 @@
 	<form id="leilao" method="post">
 		<h2>Escolha o ID do leilao que pretende concorrer</h2>
 		<p>ID : <input type="text"  name="lid" /></p>
-		<p><input type="submit" /></p>
+		<p><input type="submit"  /></p>
 	</form>
 	<div id="leiloesincritos"></div>
 	<form id="lance" method="post">
