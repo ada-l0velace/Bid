@@ -83,6 +83,11 @@
 		
 	}
 	else{
+		if(!$new_dia){
+			echo("<div id='erro'> Leilão não existe! </div>");
+			exit();
+		}
+
 		$endDay = floor($datediff/(60*60*24));
 		echo("<div id='erro'> Leilao acabou no dia $new_dia </div>");
 	}
