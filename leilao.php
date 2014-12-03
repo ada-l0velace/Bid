@@ -4,6 +4,7 @@
 	session_start();
 	if(!$_SESSION['username'])
 		header("Location: login.php");
+		exit();
 	else{
 		$username = $_SESSION['username'];
 		$nif = $_SESSION['nif'];

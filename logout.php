@@ -12,4 +12,5 @@
 	test_input($_SESSION['pessoa']);
 	session_destroy();
 	header("Location: login.php");
+	exit();
 ?>

@@ -29,7 +29,6 @@
 	$empty = false;
 	foreach($pessoa as $row){
 		if($row["nome"] != ""){
-			echo "asd";
 			$empty = true;
 			$safepin = $row["pin"];
 			$nif = $row["nif"];
@@ -54,5 +53,5 @@
 	$_SESSION['username'] = $username; 
 	$_SESSION['nif'] = $nif;
 	header("Location: registo.php");
-
+	exit();
 ?>
