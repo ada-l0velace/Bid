@@ -95,16 +95,16 @@ insert into pessoac values ('500',	'700000');
 insert into leiloeira values ('600',  '666',   'Loures',   'Lisboa');
 insert into leiloeira values ('700',  '777',   'Elvas',    'Alentejo');
 
-insert into leilao values ('2014-11-18', '1', '600', 'ACMetal',    '900',   '1');
-insert into leilao values ('2014-11-17', '2', '600', 'ACMadeira',  '450',   '1');
-insert into leilao values ('2014-11-18', '1', '700', 'ACCobre',    '1000',  '1');
-insert into leilao values ('2013-11-19', '1', '700', 'ACCristal',  '100',   '1');
+insert into leilao values ('2014-12-03', '1', '600', 'ACMetal',    '900',   '1');
+insert into leilao values ('2014-12-02', '2', '600', 'ACMadeira',  '450',   '1');
+insert into leilao values ('2014-12-01', '1', '700', 'ACCobre',    '1000',  '1');
+insert into leilao values ('2014-11-01', '1', '700', 'ACCristal',  '100',   '1');
 insert into leilao values ('2015-01-01', '1', '700', 'ACMarmore',  '250',   '1');
 
-insert into leilaor values ('2014-11-18', '1', '600', '1',   '1');
-insert into leilaor values ('2014-11-17', '2', '600', '5',   '2');
-insert into leilaor values ('2014-11-18', '1', '700', '1',   '3');
-insert into leilaor values ('2013-11-19', '1', '700', '50',  '4');
+insert into leilaor values ('2014-12-03', '1', '600', '1',   '1');
+insert into leilaor values ('2014-12-02', '2', '600', '5',   '2');
+insert into leilaor values ('2014-12-01', '1', '700', '1',   '3');
+insert into leilaor values ('2014-11-01', '1', '700', '50',  '4');
 insert into leilaor values ('2015-01-01', '1', '700', '365', '5');
 
 -- ativa a verificaÃ§Ãµ das chaves estrangeiras
