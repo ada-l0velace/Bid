@@ -1,5 +1,6 @@
 <?php 
-include 'includes/dbconnection.php';
+	include 'includes/dbconnection.php';
+	session_start();
 	// Função para limpar os dados de entrada
 	function test_input($data) {
 		$data = trim($data);
