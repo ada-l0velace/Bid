@@ -21,19 +21,32 @@
 	$pessoa = $connection->prepare($sql);
 	$pessoa->bindParam(':username', $username);
 	$result = $pessoa->execute();
+
 	if (!$result) {
 		echo("<p> Erro na Query:($sql)<p>");
 		exit();
 	}
+	$empty = false;
 	foreach($pessoa as $row){
-		$safepin = $row["pin"];
-		$nif = $row["nif"];
-		$_SESSION['pessoa']= $row["nome"];
-		$nome = $row["nome"];
+		if($row["nome"] != ""){
+			echo "asd";
+			$empty = true;
+			$safepin = $row["pin"];
+			$nif = $row["nif"];
+			$_SESSION['pessoa']= $row["nome"];
+			$nome = $row["nome"];
+		}
+	}
+	if($empty == false){
+		header("Location: logout.php");
+		exit();
 	}
 	if ($safepin != $pin ) {
 		echo "<p>Pin Invalido! Exit!</p>\n";
 		$connection = null;
+		$error = "Nif or Pin invalid!";
+		//alert('error');
+		header("Location: logout.php"."?"."login_erro=". $error);
 		exit();
 	}
 	echo "<p>Pin Valido! </p>\n";
