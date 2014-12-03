@@ -2,9 +2,10 @@
 	include 'includes/dbconnection.php';
 	// inicia sessão para passar variaveis entre ficheiros php
 	session_start();
-	if(!$_SESSION['username'])
+	if(!$_SESSION['username']){
 		header("Location: login.php");
 		exit();
+	}
 	else{
 		$username = $_SESSION['username'];
 		$nif = $_SESSION['nif'];
