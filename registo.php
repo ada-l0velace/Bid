@@ -2,9 +2,8 @@
 	<body>
 
 	<?php 
+		include 'includes/dbconnection.php';
 		// inicia sessão para passar variaveis entre ficheiros php
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
 		session_start();
 		// Função para limpar os dados de entrada
 		function test_input($data) {
@@ -20,18 +19,7 @@
 			$pin = test_input($_POST["pin"]);
 		}
 		echo("<p>Valida Pin da Pessoa $username</p>\n");
-		// Variáveis de conexão à BD
-		$host="db.ist.utl.pt"; // o MySQL esta disponivel nesta maquina
-		$user="ist176563"; // -> substituir pelo nome de utilizador
-		$password="apjd9878"; // -> substituir pela password dada pelo mysql_reset
-		$dbname = $user; // a BD tem nome identico ao utilizador
-		echo("<p>Projeto Base de Dados Parte II</p>\n");
-		$connection = new PDO("mysql:host=" . $host. ";dbname=" . $dbname, $user, $password, 
-		array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
-		if ($connection->errorCode()) {
-		    die("Connection failed: " . $connection->errorCode());
-		} 
-		echo("<p>Connected to MySQL database $dbname on $host as user $user</p>\n");
+		
 
 		// obtem o pin da tabela pessoa
 		$sql = "SELECT * FROM pessoa WHERE nif=:username";
