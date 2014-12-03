@@ -19,8 +19,10 @@
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$lid = test_input($_POST["lid"]);
 	}
-
-
+	if(!$lid){
+		echo("<div id='erro'> Leilão não existe! </div>");
+		exit();
+	}
 
 	//regista a pessoa no leilão. Exemplificativo apenas.....
 	$inscreve_query = "INSERT INTO concorrente (pessoa,leilao) 
@@ -73,7 +75,7 @@
 		if($dia_abertura <= $data_now){
 			$inscreve = $connection->query($inscreve_query);
 			if (!$inscreve) {
-			 	echo("<div id='erro'> Pessoa nao registada: Erro na Query:($sql) </div>");
+			 	echo("<div id='erro'> Pessoa já se encontra registada neste leilão! </div>");
 				exit();
 			}
 			echo("<div id='erro'> Pessoa ($username), nif ($nif) Registada no leilao ($lid)</div>\n");
