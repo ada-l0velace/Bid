@@ -11,13 +11,13 @@ $(document).ready(function(){
 			type: "post",
 			data: values,
 			success: function(data){
-				try {
+				try {	
 					var error = $(data).filter("#erro");
 					//var error = $(data).find('#erro'); use this if div is nested
 					alert(error.html());
 				}
 				catch(err) {
-					//console.log("Error not found");
+					console.log("Error not found");
 				}
 				populateDivTable("leilaoinscritos.php","leiloesincritos");
 				populateDivTable("leilaotop.php","leiloestop");
