@@ -20,6 +20,7 @@ $(document).ready(function(){
 					//console.log("Error not found");
 				}
 				populateDivTable("leilaoinscritos.php","leiloesincritos");
+				populateDivTable("leilaotop.php","leiloestop");
 				},
 				error:function(){
 					alert("failure");
@@ -48,6 +49,7 @@ $(document).ready(function(){
 				catch(err) {
 					//console.log("Error not found");
 				}
+				populateDivTable("leilaoinscritos.php","leiloesincritos");
 				populateDivTable("leilaotop.php","leiloestop");
 			},
 			error:function(){
