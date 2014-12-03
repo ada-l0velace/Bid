@@ -1,5 +1,3 @@
-<html>
-<body>
 <?php 
 	include 'includes/dbconnection.php';
 	// inicia sessão para passar variaveis entre ficheiros php
@@ -58,7 +56,7 @@
 		$new_dia = date("y-m-d", strtotime("+" . $row["nrdias"] . " days", $time_leilao));
 	}
 
-
+/*
 	echo("<p>");
 	echo($data_now);
 	echo("</p>");
@@ -69,28 +67,27 @@
 	$datediff = strtotime($new_dia) - strtotime($data_now);
 	echo floor($datediff/(60*60*24));
 	echo("</p>");
-
-
+*/
+	$datediff = strtotime($new_dia) - strtotime($data_now);
 	if($data_now <= $new_dia){
 		if($dia_abertura <= $data_now){
 			$inscreve = $connection->query($inscreve_query);
 			if (!$inscreve) {
-			 	echo("<p> Pessoa nao registada: Erro na Query:($sql) </p>");
+			 	echo("<div id='erro'> Pessoa nao registada: Erro na Query:($sql) </div>");
 				exit();
 			}
-			echo("<p> Pessoa ($username), nif ($nif) Registada no leilao ($lid)</p>\n");
+			echo("<div id='erro'> Pessoa ($username), nif ($nif) Registada no leilao ($lid)</div>\n");
 		}else{
-			echo("<p> Leilao comeca no dia $dia_abertura </p>");
+			echo("<div id='erro'> Leilao comeca no dia $dia_abertura </div>");
 		}
 		
 	}
 	else{
-		echo("<p> Leilao acabou no dia $new_dia </p>");
+		$endDay = floor($datediff/(60*60*24));
+		echo("<div id='erro'> Leilao acabou no dia $new_dia </div>");
 	}
 
 	// to be continued….
 	//termina a sessão
 	//session_destroy();
 	?>
-</body>
-</html>
