@@ -42,12 +42,14 @@ $(document).ready(function(){
 			data: values,
 			success: function(data){
 				try {
+					//alert(data);
 					var error = $(data).filter("#erro");
 					//var error = $(data).find('#erro'); use this if div is nested
-					alert(error.html());
+					if(error.html() != undefined)
+						alert(error.html());
 				}
 				catch(err) {
-					//console.log("Error not found");
+					console.log("Error not found");
 				}
 				populateDivTable("leilaoinscritos.php","leiloesincritos");
 				populateDivTable("leilaotop.php","leiloestop");

@@ -21,11 +21,18 @@
 	 $lance = test_input($_POST["lance"]);
 	 } 
 
-	$ultimolance_query="SELECT MAX(lance.valor) AS max_valor 
+	/*$ultimolance_query="SELECT MAX(lance.valor) AS max_valor 
 	                    FROM lance 
 	                    WHERE lance.leilao = $lid";
-	$ultimolance = $connection->query($ultimolance_query);
+	$ultimolance = $connection->query($ultimolance_query);*/
+	$ultimolance = $connection->prepare("SELECT MAX(lance.valor) AS max_valor 
+	                    FROM lance 
+	                    WHERE lance.leilao = :lid");
+	$ultimolance->bindParam(':lid', $lid);
+	$ultimolance->setFetchMode(PDO::FETCH_ASSOC);
+	$ultimolance->execute();
 	$teste = false;
+	$ultimolance = $ultimolance->fetchAll();
 	foreach($ultimolance as $row){
 		if($row['max_valor'] == ""){
 			$teste = true;
@@ -35,16 +42,19 @@
 		}
 
 	}
-	$ultimolance = $connection->query($ultimolance_query);
-
+	
+	//$ultimolance = $connection->query($ultimolance_query);
+	
 	if($teste == true){
 		$valorbase_query="SELECT valorbase AS min_valor 
 						  FROM leilaor, leilao 
-						  WHERE leilaor.lid = $lid 
+						  WHERE leilaor.lid = :lid 
 						  AND leilaor.dia = leilao.dia 
 						  AND leilaor.nrleilaonodia = leilao.nrleilaonodia 
 						  AND leilaor.nif = leilao.nif";
-		$valorbase = $connection->query($valorbase_query);
+		$valorbase = $connection->prepare($valorbase_query);
+		$valorbase->bindParam(':lid', $lid);
+		$valorbase->execute();
 		foreach($valorbase as $row){
 			$valor_min = $row["min_valor"];
 		}
@@ -59,12 +69,12 @@
 	if($valor_max < $lance and $valor_min <= $lance){
 		$lance_query="INSERT INTO lance(pessoa,leilao,valor) 
 					  VALUES ($nif,$lid,$lance)";
-		$result = $connection->query($lance_query);
+		$result = $connection->prepare($lance_query);
+		$error = $result->execute();
+		//echo($lance_query);
 		
-		echo($lance_query);
-		
-		if (!$result) {
-	 		echo("<div id='erro'> Não houve lance:($sql) </div>");
+		if (!$error) {
+	 		echo("<div id='erro'> Não houve lance:($error) </div>");
 		}
 	}else{
 		echo("<div id='erro'> O valor do lance é inválido </div>");

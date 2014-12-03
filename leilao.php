@@ -24,9 +24,7 @@
 		exit();
 	}
 
-	//regista a pessoa no leilão. Exemplificativo apenas.....
-	$inscreve_query = "INSERT INTO concorrente (pessoa,leilao) 
-				       VALUES ($nif,$lid)";
+	
 	$data_now = date("y-m-d");
 
 	/*
@@ -37,9 +35,10 @@
 
 	/* PREPARED STATEMENTS */
 	$sqlDataLeilao = "SELECT * FROM leilaor 
-					  WHERE lid =" . $lid;
-	$resultado = $connection->query($sqlDataLeilao);
-
+					  WHERE lid =:lid";
+	$resultado = $connection->prepare($sqlDataLeilao);
+	$resultado->bindParam(':lid', $lid);
+	$error = $resultado->execute();
 	/*
 	echo("<p>");
 	echo($sqlDataLeilao);
@@ -47,8 +46,8 @@
 	*/
 
 
-	if (!$resultado) {
-		echo("<p> Erro na Query:($sql) </p>");
+	if (!$error) {
+		echo("<div id='erro'> Erro na Query:($sql) </div>");
 		exit();
 	}
 
@@ -71,10 +70,17 @@
 	echo("</p>");
 */
 	$datediff = strtotime($new_dia) - strtotime($data_now);
+
+	//regista a pessoa no leilão. Exemplificativo apenas.....
+	$inscreve_query = "INSERT INTO concorrente (pessoa,leilao) 
+				       VALUES (:nif,:lid)";
 	if($data_now <= $new_dia){
 		if($dia_abertura <= $data_now){
-			$inscreve = $connection->query($inscreve_query);
-			if (!$inscreve) {
+			$inscreve = $connection->prepare($inscreve_query);
+			$inscreve->bindParam(':nif', $nif);
+			$inscreve->bindParam(':lid', $lid);
+			$error = $inscreve->execute();
+			if (!$error) {
 			 	echo("<div id='erro'> Pessoa já se encontra registada neste leilão! </div>");
 				exit();
 			}
