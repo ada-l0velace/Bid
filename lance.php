@@ -1,4 +1,4 @@
-<div id='erro'><?php 
+<?php 
 	// inicia sessão para passar variaveis entre ficheiros php
 	include 'includes/dbconnection.php';
 	session_start();
@@ -19,16 +19,23 @@
 	}
 	// Carregamento das variáveis username e pin do form HTML através do metodo POST;
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	 $lid = test_input($_POST["lid"]);
-	 $lance = test_input($_POST["lance"]);
-	 } 
-
-	$lance_query="INSERT INTO lance(pessoa,leilao,valor) 
-				  VALUES ($nif,$lid,$lance)";
-	$result = $connection->prepare($lance_query);
-	$error = $result->execute();
-		
-	if (!$error) {
- 		//echo(" Não houve lance:($error) ");
+		$lid = test_input($_POST["lid"]);
+		$lance = test_input($_POST["lance"]);
+	} 
+	try {
+		$lance_query="INSERT INTO lance(pessoa,leilao,valor) 
+					  VALUES (:nif,:lid,:lance)";
+		$result = $connection->prepare($lance_query);
+		$result->bindParam(':nif', $nif);
+		$result->bindParam(':lid', $lid);
+		$result->bindParam(':lance', $lance);
+		$result->execute();
 	}
-	?></div>
+	catch (Exception $e) {
+		// An exception has been thrown
+		// We must rollback the transaction
+		$error = $e->getmessage();
+		echo("<div id='erro'> $error </div>");
+		exit();
+	}
+	?>

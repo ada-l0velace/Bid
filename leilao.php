@@ -1,5 +1,6 @@
 <?php 
 	include 'includes/dbconnection.php';
+
 	// inicia sessão para passar variaveis entre ficheiros php
 	session_start();
 	if(!$_SESSION['username']){
@@ -26,14 +27,19 @@
 		exit();
 	}
 	//regista da pessoa no leilão...
-	$inscreve_query = "INSERT INTO concorrente (pessoa,leilao) 
-				       VALUES (:nif,:lid)";
-	$inscreve = $connection->prepare($inscreve_query);
-	$inscreve->bindParam(':nif', $nif);
-	$inscreve->bindParam(':lid', $lid);
-	$error = $inscreve->execute();
-	if (!$error) {
-	 	echo("<div id='erro'> Houve um erro! </div>");
+	try{
+		$inscreve_query = "INSERT INTO concorrente (pessoa,leilao) 
+					       VALUES (:nif,:lid)";
+		$inscreve = $connection->prepare($inscreve_query);
+		$inscreve->bindParam(':nif', $nif);
+		$inscreve->bindParam(':lid', $lid);
+		$inscreve->execute();
+	}
+	catch (Exception $e) {
+		// An exception has been thrown
+		// We must rollback the transaction
+		$error = $e->getmessage();
+		echo("<div id='erro'> $error </div>");
 		exit();
 	}
 	?>

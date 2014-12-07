@@ -40,15 +40,16 @@
 			//$inscreve->bindParam(':lid', $item);
 			//$inscreve->execute()
 			$connection->query("INSERT INTO concorrente (pessoa,leilao) 
-				       VALUES ('$nif','$item')");
+				       VALUES ('$nif','$item')"); // Sql injection plz fix this shit
 		}
 		// If we arrive here, it means that no exception was thrown
 		// i.e. no query has failed, and we can commit the transaction
 		$connection->commit();
 	} catch (Exception $e) {
 		// An exception has been thrown
+		$error = $e->getmessage();
 		// We must rollback the transaction
-		echo("<div id='erro'> Transaction $count failed with error: \n $e!</div>");
+		echo("<div id='erro'> Transaction $count failed with error: \n $error!</div>");
 		$connection->rollback();
 		exit();
 	}
