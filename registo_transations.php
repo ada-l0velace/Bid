@@ -20,6 +20,7 @@
 </head>
 	<body>
 	<input type="button" value="logout" onclick="location.href = 'logout.php'" />
+	<input type="button" value="registo normal" onclick="location.href = 'registo.php'" />
 	<?php 
 		include 'includes/dbconnection.php';
 		// inicia sessão para passar variaveis entre ficheiros php
@@ -59,8 +60,8 @@
 		echo("</table>\n");
 	?>
 
-	<form id="leilao" method="post">
-		<h2>Escolha o ID do leilao que pretende concorrer</h2>
+	<form id="leilao_transaction" method="post">
+		<h2>Escolha os IDs dos leiloes que pretende concorrer separados por virgulas exemplo(1,2,3,4)</h2>
 		<p>ID : <input type="text"  name="lid" /></p>
 		<p><input type="submit"  /></p>
 	</form>

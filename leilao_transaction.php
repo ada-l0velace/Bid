@@ -25,92 +25,32 @@
 		echo("<div id='erro'> Leilão não existe! </div>");
 		exit();
 	}
-
-	
-	$data_now = date("y-m-d");
-
-	/*
-	echo("<p>");
-	echo($lid);
-	echo("</p>");
-	
-	*/
-
-	/* PREPARED STATEMENTS */
-	$sqlDataLeilao = "SELECT * FROM leilaor 
-					  WHERE lid =:lid";
-	$resultado = $connection->prepare($sqlDataLeilao);
-	$resultado->bindParam(':lid', $lid);
-	$error = $resultado->execute();
-	/*
-	echo("<p>");
-	echo($sqlDataLeilao);
-	echo("</p>");
-	*/
-
-
-	if (!$error) {
-		echo("<div id='erro'> Erro na Query:($sql) </div>");
+	$pieces = explode(",", $lid);
+	$inscreve_query = "INSERT INTO concorrente (pessoa,leilao) 
+				       VALUES (:nif,:lid)";
+	try {
+		// First of all, let's begin a transaction
+		$connection->beginTransaction();
+		$count = 0;
+		foreach ($pieces as $item) {
+			$count++;
+			// A set of queries; if one fails, an exception should be thrown
+			//$inscreve = $connection->prepare($inscreve_query);
+			//$inscreve->bindParam(':nif', $nif);
+			//$inscreve->bindParam(':lid', $item);
+			//$inscreve->execute()
+			$connection->query("INSERT INTO concorrente (pessoa,leilao) 
+				       VALUES ('$nif','$item')");
+		}
+		// If we arrive here, it means that no exception was thrown
+		// i.e. no query has failed, and we can commit the transaction
+		$connection->commit();
+	} catch (Exception $e) {
+		// An exception has been thrown
+		// We must rollback the transaction
+		echo("<div id='erro'> Transaction $count failed with error: \n $e!</div>");
+		$connection->rollback();
 		exit();
 	}
 
-	foreach($resultado as $row){
-		$time_leilao = strtotime($row["dia"]) ;
-		$dia_abertura = date("y-m-d", $time_leilao);
-		$new_dia = date("y-m-d", strtotime("+" . $row["nrdias"] . " days", $time_leilao));
-	}
-
-/*
-	try {
-    // First of all, let's begin a transaction
-    $db->beginTransaction();
-
-    // A set of queries; if one fails, an exception should be thrown
-    $db->query('first query');
-    $db->query('second query');
-    $db->query('third query');
-
-    // If we arrive here, it means that no exception was thrown
-    // i.e. no query has failed, and we can commit the transaction
-    $db->commit();
-	} catch (Exception $e) {
-	    // An exception has been thrown
-	    // We must rollback the transaction
-	    $db->rollback();
-	}
-*/
-	$datediff = strtotime($new_dia) - strtotime($data_now);
-
-	//regista a pessoa no leilão. Exemplificativo apenas.....
-	$inscreve_query = "INSERT INTO concorrente (pessoa,leilao) 
-				       VALUES (:nif,:lid)";
-	if($data_now <= $new_dia){
-		if($dia_abertura <= $data_now){
-			$inscreve = $connection->prepare($inscreve_query);
-			$inscreve->bindParam(':nif', $nif);
-			$inscreve->bindParam(':lid', $lid);
-			$error = $inscreve->execute();
-			if (!$error) {
-			 	echo("<div id='erro'> Pessoa já se encontra registada neste leilão! </div>");
-				exit();
-			}
-			echo("<div id='erro'> Pessoa ($username), nif ($nif) Registada no leilao ($lid)</div>\n");
-		}else{
-			echo("<div id='erro'> Leilao comeca no dia $dia_abertura </div>");
-		}
-		
-	}
-	else{
-		if(!$new_dia){
-			echo("<div id='erro'> Leilão não existe! </div>");
-			exit();
-		}
-
-		$endDay = floor($datediff/(60*60*24));
-		echo("<div id='erro'> Leilao acabou no dia $new_dia </div>");
-	}
-
-	// to be continued….
-	//termina a sessão
-	//session_destroy();
 	?>

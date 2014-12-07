@@ -39,9 +39,6 @@
 													AND (leilaor.dia + leilaor.nrdias) >= CURDATE()
 													AND concorrente.leilao = leilaor.lid
 													/*--------------*/
-
-													#AND (leilaor.dia + leilaor.nrdias) >= CURDATE()
-													#AND lance.valor = max_valor
 													ORDER BY lance.valor DESC) AS t1
 												WHERE :username in (SELECT concorrente.pessoa 
 											        							FROM concorrente 

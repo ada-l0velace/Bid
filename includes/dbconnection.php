@@ -8,7 +8,7 @@
 		$dbname = $user; // a BD tem nome identico ao utilizador
 		#echo("<p>Projeto Base de Dados Parte II</p>\n");
 		$connection = new PDO("mysql:host=" . $host. ";dbname=" . $dbname, $user, $password, 
-		array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
+		array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 		if ($connection->errorCode()) {
 		    die("Connection failed: " . $connection->errorCode());
 		} 

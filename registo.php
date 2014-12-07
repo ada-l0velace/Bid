@@ -20,6 +20,7 @@
 </head>
 	<body>
 	<input type="button" value="logout" onclick="location.href = 'logout.php'" />
+	<input type="button" value="registo transactions" onclick="location.href = 'registo_transations.php'" />
 	<?php 
 		include 'includes/dbconnection.php';
 		// inicia sessão para passar variaveis entre ficheiros php
