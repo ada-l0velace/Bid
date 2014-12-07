@@ -24,7 +24,7 @@
 	}
 	if(!$dropdown_days){
 
-		echo("<div id='erro'> Ocorreu um erro! </div>");
+		#echo("<div id='erro'> Ocorreu um erro! </div>");
 		exit();
 	}
 	//filtra a query com a data correspondente...

@@ -42,6 +42,7 @@
 		$days->execute();
 		echo('<form id="table_filter_leilao" method="post">');
 			echo ('<br> Choose the day you want: <select id="dropdown_days" name="dropdown_days">');
+			echo '<option value="'."0".'">'."---------".'</option>';
 			foreach($days as $row)
 				echo '<option value="'.$row['dia'].'">'.$row['dia'].'</option>';
 			echo ('</select>');// Close your drop down box
