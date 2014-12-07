@@ -24,13 +24,18 @@
 				AND leilao.dia = leilaor.dia 
 				AND leilao.nrleilaonodia = leilaor.nrleilaonodia"); 
 	$lei_inscritos->bindParam(':username', $username);
+	// setting fetch mode for reusing data without requerying
+	$lei_inscritos->setFetchMode(PDO::FETCH_ASSOC);
 	$result = $lei_inscritos->execute();
-	//$result = $connection->query($sql);
+	// setting data for reusing
+	$lei_inscritos = $lei_inscritos->fetchALL();
+
+	//check if query returned rows
 	$teste = false;
 	foreach($lei_inscritos as $row1)
 		$teste = true;
-	$result = $lei_inscritos->execute();
 
+	//if contains rows draw table
 	if($teste == true){
 		echo("<div style='width:50%'><table class='table table-hover table-bordered' border = '1'>\n");
 		echo("<thead><tr class='active'><th>NrDoDia</th><th>Nome Leilao</th><th>Dia</th></tr></thead>\n");

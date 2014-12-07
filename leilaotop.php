@@ -46,14 +46,19 @@
 												GROUP BY t1.lid
 												"); 
 	$leilaotop->bindParam(':username', $username);
+	// setting fetch mode for reusing data without requerying
+	$leilaotop->setFetchMode(PDO::FETCH_ASSOC);
 	$result = $leilaotop->execute();
-	//$result = $connection->query($sql);
-	$teste = false;
+	// setting data for reusing
+	$leilaotop = $leilaotop->fetchAll();
+
+	//check if query returned rows
+	$hasrows = false;
 	foreach($leilaotop as $row1){
-		$teste = true;
+		$hasrows = true;
 	}
-	$result = $leilaotop->execute();
-	if($teste == true){
+	//if contains rows draw table
+	if($hasrows){
 		echo("<div style='width:50%'><table class='table table-hover table-bordered' border = '1'>\n");
 		echo("<thead><tr><th>Nr Leilao</th><th>Nome Leilao</th><th>Dia</th><th>Termina em:</th><th>Max Valor</th><th>Licitador</th></tr></thead>\n");
 		foreach($leilaotop as $row){
