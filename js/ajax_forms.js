@@ -14,7 +14,8 @@ $(document).ready(function(){
 				try {	
 					var error = $(data).filter("#erro");
 					//var error = $(data).find('#erro'); use this if div is nested
-					alert(error.html());
+					if(error.html() != undefined && error.html() != "")
+						alert(error.html());
 				}
 				catch(err) {
 					console.log("Error not found");
@@ -45,7 +46,7 @@ $(document).ready(function(){
 					//alert(data);
 					var error = $(data).filter("#erro");
 					//var error = $(data).find('#erro'); use this if div is nested
-					if(error.html() != undefined)
+					if(error.html() != undefined && error.html() != "")
 						alert(error.html());
 				}
 				catch(err) {

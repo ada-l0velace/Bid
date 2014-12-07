@@ -32,8 +32,8 @@
 	$result = $lei_inscritos->execute();
 
 	if($teste == true){
-		echo("<table border=\"1\">\n");
-		echo("<tr><td>NrDoDia</td><td>Nome Leilao</td><td>Dia</td></tr>\n");
+		echo("<div style='width:50%'><table class='table table-hover table-bordered' border = '1'>\n");
+		echo("<thead><tr class='active'><th>NrDoDia</th><th>Nome Leilao</th><th>Dia</th></tr></thead>\n");
 		$idleilao = 0;
 		foreach($lei_inscritos as $row){
 			echo("<tr><td>");
@@ -41,6 +41,7 @@
 			echo($row["nome"]); echo("</td><td>");
 			echo($row["dia"]); echo("</td></tr>");
 		}
+		echo("</table></div>\n");
 	}
 	//session_destroy();
 ?>
