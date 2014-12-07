@@ -35,31 +35,19 @@
 		}
 		echo("You are logged with ".$_SESSION['pessoa']);
 		// Apresenta os leilões
-		$sql = "SELECT * 
-				FROM leilao, leilaor 
-				WHERE leilaor.nif = leilao.nif 
-				AND leilaor.nrleilaonodia = leilao.nrleilaonodia 
-				AND leilaor.dia = leilao.dia
-				ORDER BY leilaor.lid
-				";
-		$result = $connection->query($sql);
-		echo("<table border=\"1\">\n");
-		echo("<tr><td>ID</td><td>nif</td><td>dia</td><td>NrDoDia</td><td>nome</td><td>tipo</td><td>valo
-		rbase</td></tr>\n");
-		foreach($result as $row){
-			echo("<tr><td>");
-			echo($row["lid"]); echo("</td><td>");
-			echo($row["nif"]); echo("</td><td>");
-			echo($row["dia"]); echo("</td><td>");
-			echo($row["nrleilaonodia"]); echo("</td><td>");
-			echo($row["nome"]); echo("</td><td>");
-			echo($row["tipo"]); echo("</td><td>");
-			echo($row["valorbase"]); echo("</td></tr>");
-			//$leilao[$idleilao]= array($row["nif"],$row["diahora"],$row["nrleilaonodia"]);
-		}
-		echo("</table>\n");
+		$query_days = "SELECT DISTINCT dia 
+						FROM leilao 
+						ORDER BY dia";
+		$days = $connection->prepare($query_days);
+		$days->execute();
+		echo('<form id="table_filter_leilao" method="post">');
+			echo ('<br> Choose the day you want: <select id="dropdown_days" name="dropdown_days">');
+			foreach($days as $row)
+				echo '<option value="'.$row['dia'].'">'.$row['dia'].'</option>';
+			echo ('</select>');// Close your drop down box
+		echo('</form>');
 	?>
-
+	<div id="table_filterDay_leilao"></div>
 	<form id="leilao_transaction" method="post">
 		<h2>Escolha os IDs dos leiloes que pretende concorrer separados por virgulas exemplo(1,2,3,4)</h2>
 		<p>ID : <input type="text"  name="lid" /></p>
@@ -77,7 +65,9 @@
 	<script >
 		populateDivTable("leilaoinscritos.php","leiloesincritos");
 		populateDivTable("leilaotop.php","leiloestop");
+
+		//$('select[name=dropdown_days1] option:eq(0)').attr('selected', 'selected');
+		//$("#table_filter_leilao").submit();
 	</script>
 	<script language="javascript" src="js/ajax_forms.js"></script>
-
 </html>
