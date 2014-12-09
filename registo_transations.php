@@ -64,11 +64,12 @@
 	<div id="leiloestop"></div>
 	</body>
 	<script >
-		populateDivTable("leilaoinscritos.php","leiloesincritos");
-		populateDivTable("leilaotop.php","leiloestop");
-
-		//$('select[name=dropdown_days1] option:eq(0)').attr('selected', 'selected');
-		//$("#table_filter_leilao").submit();
+		$(window).load(function () {
+			populateDivTable("leilaoinscritos.php","leiloesincritos");
+			populateDivTable("leilaotop.php","leiloestop");
+			$("#dropdown_days").val($("#dropdown_days option:eq(1)").val());
+    		$("#table_filter_leilao").submit();
+		});
 	</script>
 	<script language="javascript" src="js/ajax_forms.js"></script>
 </html>

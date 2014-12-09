@@ -5,6 +5,7 @@ DELIMITER ;
 SET foreign_key_checks = 0 ;
 
 -- tabela das pessoas 
+
 DROP TABLE IF EXISTS pessoa ;
 CREATE TABLE pessoa( 
 	nif 			INT ,    					-- ID e username das pessoas pessoa
@@ -80,7 +81,7 @@ CREATE TABLE lance(
 	PRIMARY KEY (pessoa,leilao,valor),
 	FOREIGN KEY (pessoa,leilao)  REFERENCES concorrente(pessoa,leilao)
 );
-
+/*
 insert into pessoa	values ('100',	'Alberto',		'11');
 insert into pessoa	values ('200',	'Manel',		'22');
 insert into pessoa	values ('300',	'Ana',		    '33');
@@ -106,6 +107,6 @@ insert into leilaor values ('2014-12-02', '2', '600', '5',   '2');
 insert into leilaor values ('2014-12-01', '1', '700', '1',   '3');
 insert into leilaor values ('2014-11-01', '1', '700', '50',  '4');
 insert into leilaor values ('2015-01-01', '1', '700', '365', '5');
-
+*/
 -- ativa a verificaÃ§Ãµ das chaves estrangeiras
 SET foreign_key_checks = 1 ;

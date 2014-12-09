@@ -1,0 +1,1 @@
+mysql> tee 'var/www/Base-de-Dados/sql/session.out'

@@ -82,7 +82,7 @@ $(document).ready(function(){
 				catch(err) {
 					console.log("Error not found");
 				}
-				populateDivTable("leilaoinscritos.php","leiloesincritos");
+				//populateDivTable("leilaoinscritos.php","leiloesincritos");
 				populateDivTable("leilaotop.php","leiloestop");
 			},
 			error:function(){

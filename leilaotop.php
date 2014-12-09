@@ -28,13 +28,9 @@
 													/* leilaor foreign keys*/
 													AND leilaor.nrleilaonodia = leilao.nrleilaonodia
 													AND leilaor.nif = leilao.nif
+										
 													AND leilaor.dia = leilao.dia
 													/*--------------*/
-											        /*AND concorrente.pessoa IN (SELECT concorrente.pessoa 
-											        							FROM concorrente 
-											        							WHERE concorrente.leilao = leilaor.lid 
-											        							AND concorrente.pessoa = :username)*/
-
 													/*concorrent foreign keys */
 													AND (leilaor.dia + leilaor.nrdias) >= CURDATE()
 													AND concorrente.leilao = leilaor.lid

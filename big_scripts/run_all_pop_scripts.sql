@@ -1,0 +1,10 @@
+source /var/www/Base-de-Dados/sql/tabelasp2.sql;
+source /var/www/Base-de-Dados/big_scripts/pessoa.sql;
+source /var/www/Base-de-Dados/big_scripts/pessoac.sql;
+source /var/www/Base-de-Dados/big_scripts/leiloeiras.sql;
+source /var/www/Base-de-Dados/big_scripts/leilao.sql;
+source /var/www/Base-de-Dados/big_scripts/leilaor.sql;
+source /var/www/Base-de-Dados/big_scripts/concorrente.sql;
+source /var/www/Base-de-Dados/big_scripts/lance.sql;
+source /var/www/Base-de-Dados/sql/dimensiontables.sql;
+source /var/www/Base-de-Dados/sql/factables.sql;
