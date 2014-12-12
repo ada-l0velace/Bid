@@ -40,10 +40,11 @@
 		$result = $connection->prepare($sql);
 		$result->bindParam(':dropdown_days', $dropdown_days);
 		$result->execute();
-		echo("<table border=\"1\">\n");
+		echo("<table id='filter_leilao' border=\"1\">\n");
 		echo("<tr><td>ID</td><td>nif</td><td>dia</td><td>NrDoDia</td><td>nome</td><td>tipo</td><td>valo
 		rbase</td></tr>\n");
 		foreach($result as $row){
+			//array_push($array,$row["lid"]);
 			echo("<tr><td>");
 			echo($row["lid"]); echo("</td><td>");
 			echo($row["nif"]); echo("</td><td>");

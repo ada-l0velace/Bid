@@ -17,30 +17,36 @@
 		return $data; 
 	}
 
-	$leilaotop = $connection->prepare("SELECT MAX(t1.valor) as max_valor,t1.pessoa,t1.nrdias,t1.t1.dia,t1.nome,t1.lid FROM (
-												SELECT leilao.nome, leilao.dia, lance.pessoa , leilaor.lid, lance.valor ,leilaor.nrdias
-													FROM concorrente, leilaor, leilao, lance 
-													WHERE 
-													/* lance foreign keys*/
-													lance.leilao = concorrente.leilao
-													AND lance.pessoa = concorrente.pessoa
-													/*-------------*/
-													/* leilaor foreign keys*/
-													AND leilaor.nrleilaonodia = leilao.nrleilaonodia
-													AND leilaor.nif = leilao.nif
-										
-													AND leilaor.dia = leilao.dia
-													/*--------------*/
-													/*concorrent foreign keys */
-													AND (leilaor.dia + leilaor.nrdias) >= CURDATE()
-													AND concorrente.leilao = leilaor.lid
-													/*--------------*/
-													ORDER BY lance.valor DESC) AS t1
-												WHERE :username in (SELECT concorrente.pessoa 
-											        							FROM concorrente 
-											        							WHERE concorrente.leilao = t1.lid)
-												GROUP BY t1.lid
-												"); 
+	$leilaotop = $connection->prepare("SELECT 
+										    lance.valor,
+										    lance.pessoa,
+										    leilaor.nrdias,
+										    leilao.dia,
+										    leilao.nome,
+										    lance.leilao
+										FROM
+										    lance,
+										    leilao,
+										    leilaor,
+										    (SELECT 
+										        MAX(lance.valor) AS max_la, lance.leilao
+										    FROM
+										        lance
+										    GROUP BY lance.leilao) AS tab
+										WHERE
+										    lance.leilao = tab.leilao
+										        AND leilao.nif = leilaor.nif
+										        AND leilaor.lid = lance.leilao
+										        AND leilao.nrleilaonodia = leilaor.nrleilaonodia
+										        AND leilaor.dia = leilao.dia
+										        AND leilao.dia = leilaor.dia
+										        AND lance.valor = tab.max_la
+										        AND :username IN (SELECT 
+										            concorrente.pessoa
+										        FROM
+										            concorrente
+										        WHERE
+										            concorrente.leilao = lance.leilao)"); 
 	$leilaotop->bindParam(':username', $username);
 	// setting fetch mode for reusing data without requerying
 	$leilaotop->setFetchMode(PDO::FETCH_ASSOC);
@@ -59,7 +65,7 @@
 		echo("<thead><tr><th>Nr Leilao</th><th>Nome Leilao</th><th>Dia</th><th>Termina em:</th><th>Max Valor</th><th>Licitador</th></tr></thead>\n");
 		foreach($leilaotop as $row){
 			echo("<tr><td>");
-			echo($row["lid"]); echo("</td><td>");
+			echo($row["leilao"]); echo("</td><td>");
 			echo($row["nome"]); echo("</td><td>");
 			echo($row["dia"]); echo("</td><td>");
 			$data_now = date("y-m-d");

@@ -36,11 +36,12 @@
 		echo("You are logged with ".$_SESSION['pessoa']);
 		// Apresenta os leilões
 		$sql = "SELECT * 
-				FROM leilao, leilaor 
-				WHERE leilaor.nif = leilao.nif 
-				AND leilaor.nrleilaonodia = leilao.nrleilaonodia 
-				AND leilaor.dia = leilao.dia
-				ORDER BY leilaor.lid
+FROM leilao, leilaor 
+WHERE leilaor.nif = leilao.nif 
+AND leilaor.nrleilaonodia = leilao.nrleilaonodia 
+AND leilaor.dia = leilao.dia
+AND (leilaor.dia + leilaor.nrdias) >= CURDATE()
+ORDER BY leilaor.lid
 				";
 		$result = $connection->query($sql);
 		echo("<table border=\"1\">\n");

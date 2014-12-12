@@ -14,3 +14,5 @@
 		} 
 		#echo("<p>Connected to MySQL database $dbname on $host as user $user</p>\n");
 		?>
+
+		

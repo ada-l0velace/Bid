@@ -53,5 +53,4 @@
 		$connection->rollback();
 		exit();
 	}
-
 	?>
