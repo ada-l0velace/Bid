@@ -1,4 +1,4 @@
-Base-de-Dados
+Bid Project
 =============
 
-Projecto de Bd
+Uses Ajax, PHP and SQL
